@@ -1,0 +1,4 @@
+Arquivo de Teste
+
+texto .....
+fim
