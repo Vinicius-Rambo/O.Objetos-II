@@ -1,11 +1,13 @@
 public class Orcamento {
+
     private int id;
     private double valorTotal;
     private boolean status;
     private String dataCriado;
     private String dataLimite;
-    
-    //ID
+
+    // Getters e Setters
+
     public int getId() {
         return id;
     }
@@ -14,7 +16,6 @@ public class Orcamento {
         this.id = id;
     }
 
-    //Valor total
     public double getValorTotal() {
         return valorTotal;
     }
@@ -23,7 +24,6 @@ public class Orcamento {
         this.valorTotal = valorTotal;
     }
 
-    //Is status
     public boolean isStatus() {
         return status;
     }
@@ -32,7 +32,6 @@ public class Orcamento {
         this.status = status;
     }
 
-    //Data Criado
     public String getDataCriado() {
         return dataCriado;
     }
@@ -41,7 +40,6 @@ public class Orcamento {
         this.dataCriado = dataCriado;
     }
 
-    //Data limite
     public String getDataLimite() {
         return dataLimite;
     }
@@ -49,5 +47,4 @@ public class Orcamento {
     public void setDataLimite(String dataLimite) {
         this.dataLimite = dataLimite;
     }
-
 }
