@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-        Metodos metodos = new Metodos();
+        Opcoes opcoes = new Opcoes();
 
         String opc;
 
@@ -13,7 +13,7 @@ public class Main {
             System.err.println("[1] - Cadastre aeroportos  ");
             System.err.println("[2] - Listar os aeroportos ");
             System.err.println("[3] - Remova um aeroporto  ");
-            System.err.println("[4] - Consultar por sigla  ");
+            System.err.println("[4] - Relatorio por sigla  ");
             System.err.println("[0] - Sair");
             System.out.print("Escolha sua opção: ");
 
@@ -22,22 +22,22 @@ public class Main {
             switch (opc){
                 case "1":
                     limparTela();
-                    metodos.cadastrarAeroportos(teclado);
+                    opcoes.cadastrarAeroportos(teclado);
                     break;
 
                 case "2": 
                     limparTela();
-                    metodos.listarAeroportos();
+                    opcoes.listarAeroportos();
                     break;
                 
                 case "3":
                     limparTela();
-                    //metodos.removerAeroportos(teclado);
+                    opcoes.removerAeroportos(teclado);
                     break;
                 
                 case "4":
                     limparTela();
-                    //metodos.consultarSigla(teclado);
+                    opcoes.consultarSigla(teclado);
                     break;
                 
                 case "0":
