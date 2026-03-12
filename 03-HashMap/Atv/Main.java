@@ -3,8 +3,8 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in));
-        Opcoes opcoes = new Opcoes();
+        BufferedReader teclado = new BufferedReader(new InputStreamReader(System.in)); //Buffered Reader para digitar.
+        Opcoes opcoes = new Opcoes(); 
 
         String opc;
 
