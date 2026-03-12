@@ -35,7 +35,7 @@ public class Opcoes {
         for (String sigla : aeroportos.keySet()){  //Foreach com sigla e chave.
 
             Aeroporto a = aeroportos.get(sigla); //Objeto A do tipo Aeroporto é igual ao valor do objeto referente a chave "sigla"
-            System.out.println("[" + sigla + "] - " + a.getNome()); //Para conseguir ter a Key e o Nome, alternativamente poderia usar entrySet()
+            System.out.println("[" + sigla + "] - " + a.getNome()); 
         }
     }
 
