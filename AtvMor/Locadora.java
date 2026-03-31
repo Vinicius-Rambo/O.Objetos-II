@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import controller.GerenciadorVeiculo;
+import controller.GerenciadorVendedor;
+
 public class Locadora {
     public static void main(String[] args) {
         Locadora loc = new Locadora();

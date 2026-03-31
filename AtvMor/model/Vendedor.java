@@ -1,12 +1,14 @@
+package model;
+
 public class Vendedor {
     private int codigo;
     private String nome;
     private String contato;
     private String email;
     private String cpf;
-    private String numCrasha;
-    private String anoAdmissao;
-    private String cargo;
+    private String numCracha;
+    private int anoAdmissao;
+    private Cargo cargo; //Enum
 
     //Codigo
     public int getCodigo() {
@@ -21,6 +23,7 @@ public class Vendedor {
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -34,7 +37,7 @@ public class Vendedor {
         this.contato = contato;
     }
 
-    //E-mail
+    //Email
     public String getEmail() {
         return email;
     }
@@ -43,7 +46,7 @@ public class Vendedor {
         this.email = email;
     }
 
-    //Cpf
+    //CPF
     public String getCpf() {
         return cpf;
     }
@@ -52,30 +55,30 @@ public class Vendedor {
         this.cpf = cpf;
     }
 
-    //Crasha
-    public String getNumCrasha() {
-        return numCrasha;
+    //Cracha
+    public String getNumCracha() {
+        return numCracha;
     }
-    public void setNumCrasha(String numCrasha) {
-        this.numCrasha = numCrasha;
+
+    public void setNumCracha(String numCracha) {
+        this.numCracha = numCracha;
     }
 
     //Ano Admissao
-    public String getAnoAdmissao() {
+    public int getAnoAdmissao() {
         return anoAdmissao;
     }
-    public void setAnoAdmissao(String anoAdimissao) {
-        this.anoAdmissao = anoAdimissao;
+
+    public void setAnoAdmissao(int anoAdmissao) {
+        this.anoAdmissao = anoAdmissao;
     }
 
     //Cargo
-    public String getCargo() {
+    public Cargo getCargo() {
         return cargo;
     }
-    public void setCargo(String cargo) {
+
+    public void setCargo(Cargo cargo) {
         this.cargo = cargo;
     }
-
-
-    
 }

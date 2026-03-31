@@ -1,3 +1,5 @@
+package model;
+
 public class Veiculo{
     private int codigo;
     private String marca;

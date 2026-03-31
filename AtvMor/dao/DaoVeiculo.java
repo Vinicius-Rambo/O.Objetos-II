@@ -1,8 +1,12 @@
+package dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import model.Veiculo;
+import util.GerenciadorConexao;
 
 public class DaoVeiculo {
     private Connection conn;
@@ -85,7 +89,7 @@ public class DaoVeiculo {
             + "marca = '" + v.getMarca() + "', " 
             + "modelo = '" + v.getModelo() + "', " 
             + "chassi = '" + v.getChassi() + "', " 
-            + "ano = '" + v.getAno() + "'"
+            + "ano = '" + v.getAno() + "' "
             + "WHERE codigo = " + v.getCodigo() + ";";
             
             //System.out.println(comando);

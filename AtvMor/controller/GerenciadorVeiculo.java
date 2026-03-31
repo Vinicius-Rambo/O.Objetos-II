@@ -1,5 +1,10 @@
+package controller;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import model.Veiculo;
+import dao.DaoVeiculo;
 
 public class GerenciadorVeiculo{
 
@@ -96,7 +101,7 @@ public class GerenciadorVeiculo{
             System.out.println("[Dados do veiculo]");
             System.out.println("Código: " + v.getCodigo());
             System.out.println("Marca: " + v.getMarca());
-            System.out.println("Chassi: " + v.getModelo());
+            System.out.println("Chassi: " + v.getChassi());
             System.out.println("Ano: " + v.getAno());
             
         }
