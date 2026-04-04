@@ -29,13 +29,13 @@ public class Locadora {
                 switch (opcao){
                    
                     case 1: 
-                        GerenciadorVeiculo gv = new GerenciadorVeiculo();
-                        gv.menu();
+                        GerenciadorVeiculo gv1 = new GerenciadorVeiculo();
+                        gv1.menu();
                         break;
 
                     case 2: 
-                        GerenciadorVendedor gv = new GerenciadorVendedor();
-                        gv.menu();
+                        GerenciadorVendedor gv2 = new GerenciadorVendedor();
+                        gv2.menu();
                         break;
 
                     case 0: 

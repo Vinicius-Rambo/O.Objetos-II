@@ -1,6 +1,6 @@
 package model;
 
-public enum Cargo {
+public enum Cargo { //Enum com os valores de cargo.
     JUNIOR,
     PLENO,
     SENIOR,

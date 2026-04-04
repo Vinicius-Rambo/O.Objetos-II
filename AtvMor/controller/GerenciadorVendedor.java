@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Imports por ter pastas
 import dao.DaoVendedor;
 import model.Vendedor;
 import model.Cargo;
@@ -12,7 +13,7 @@ public class GerenciadorVendedor {
     Scanner scanner;
     DaoVendedor dao;
 
-    public GerenciadorVendedor(){
+    public GerenciadorVendedor(){ //Contrutor
         scanner = new Scanner(System.in);
         dao = new DaoVendedor();
     }
@@ -37,20 +38,40 @@ public class GerenciadorVendedor {
             }
 
             switch(opcao){
-                case 1: cadastrar(); break;
-                case 2: consultar(); break;
-                case 3: alterar(); break;
-                case 4: excluir(); break;
-                case 5: listarTodos(); break;
+                case 1: 
+                    limparTela(); //Apenas para fins esteticos.
+                    cadastrar();
+                    break;
+
+                case 2: 
+                    limparTela(); 
+                    consultar();
+                    break;
+
+                case 3: 
+                    limparTela(); 
+                    alterar();
+                    break;
+
+                case 4: 
+                    limparTela(); 
+                    excluir();
+                    break;
+
+                case 5: 
+                    limparTela(); 
+                    listarTodos();
+                    break;
+
             }
 
         }while(opcao != 0);
     }
     
-    //Metodo de segurança
+    //Metodo de seguranca para escolher o cargo usando os ENUNS.
     private Cargo escolherCargo(){
         while(true){
-            System.out.println("Escolha o Cargo:");
+            System.out.println("\nEscolha o Cargo:");
             System.out.println("[1] - JUNIOR");
             System.out.println("[2] - PLENO");
             System.out.println("[3] - SENIOR");
@@ -98,20 +119,32 @@ public class GerenciadorVendedor {
         System.out.print("Ano Admissão: ");
         v.setAnoAdmissao(Integer.parseInt(scanner.nextLine()));
 
-        // ✔ Escolha segura
+        // Escolha segura anterior.
         v.setCargo(escolherCargo());
 
-        String res = dao.inserir(v) ? "Inserido com sucesso" : "Erro ao inserir";
+        String res = dao.inserir(v) ? "Inserido com sucesso" : "Erro ao inserir"; // Ternario
         System.out.println(res);
     }
 
     private void consultar(){
-        System.out.print("Código: ");
+        ArrayList<Vendedor> lista = dao.buscarTodos(); //Recebe todos os valores, e guarda em uma lista
+        
+        if(lista.isEmpty()){ //Caso náo tiver cadastros
+            System.out.println("Nenhum vendedor cadastrado.");
+            return;
+        }
+
+        System.out.println("\n[Vendedores]");
+        for(Vendedor v : lista){ //Vendedores na lista, retorna para ver o codigo e nome.
+            System.out.println(v.getCodigo() + " - " + v.getNome()); //Apenas para mostrar o codigo e Nome.
+        }
+
+        System.out.print("\nDigite o código: ");
         int cod = Integer.parseInt(scanner.nextLine());
 
-        Vendedor v = dao.consultar(cod);
+        Vendedor v = dao.consultar(cod); 
 
-        if(v != null){
+        if(v != null){ //Mostra todas as informacoes se não for null 
             System.out.println("\n[Dados]");
             System.out.println("Código: " + v.getCodigo());
             System.out.println("Nome: " + v.getNome());
@@ -126,8 +159,21 @@ public class GerenciadorVendedor {
         }
     }
 
+
     private void alterar(){
-        System.out.print("Código: ");
+        ArrayList<Vendedor> lista = dao.buscarTodos(); //Recebe todos os valores, e guarda em uma lista
+
+        if(lista.isEmpty()){//Caso náo tiver cadastros
+            System.out.println("Nenhum vendedor cadastrado.");
+            return;
+        }
+
+        System.out.println("\n[Vendedores]");
+        for(Vendedor v : lista){ //vendedores em lista
+            System.out.printf("%-5d - %-20s%n", v.getCodigo(), v.getNome()); //Printf por questões de formatacao 
+        }
+
+        System.out.print("\nDigite o código: ");
         int cod = Integer.parseInt(scanner.nextLine());
 
         Vendedor v = dao.consultar(cod);
@@ -136,7 +182,7 @@ public class GerenciadorVendedor {
 
             System.out.print("Nome [" + v.getNome() + "]: ");
             String nome = scanner.nextLine();
-            if(!nome.isEmpty()) v.setNome(nome);
+            if(!nome.isEmpty()) v.setNome(nome); //Só muda se o usuario digitar algo, se não deixa como esta.
 
             System.out.print("Contato [" + v.getContato() + "]: ");
             String contato = scanner.nextLine();
@@ -158,12 +204,11 @@ public class GerenciadorVendedor {
             String ano = scanner.nextLine();
             if(!ano.isEmpty()) v.setAnoAdmissao(Integer.parseInt(ano));
 
-            // ✔ alteração segura de cargo
-            System.out.print("Deseja alterar o cargo? (s/n): ");
+            System.out.print("Deseja alterar o cargo? (s/n): "); //Somente se o usaurio quiser mudar o cargo.
             String resp = scanner.nextLine();
 
-            if(resp.equalsIgnoreCase("s")){
-                v.setCargo(escolherCargo());
+            if(resp.equalsIgnoreCase("s")){ //Se quiser mudar o cargo usando case-insensitive.
+                v.setCargo(escolherCargo()); //Chama o metodo de antes, com o seus retornos.
             }
 
             int qtde = dao.alterar(v);
@@ -175,27 +220,61 @@ public class GerenciadorVendedor {
         }
     }
 
+
     private void excluir(){
-        System.out.print("Código: ");
+        ArrayList<Vendedor> lista = dao.buscarTodos(); //Recebe todos os valores, e guarda em uma lista
+
+        if(lista.isEmpty()){
+            System.out.println("Nenhum vendedor cadastrado.");
+            return;
+        }
+
+        System.out.println("\n[Vendedores]");
+        for(Vendedor v : lista){
+            System.out.printf("%-5d - %-20s%n", v.getCodigo(), v.getNome()); //Mostra os vendedores cadastrados (Id - Nome)
+        }
+
+        System.out.print("\nDigite o código: "); 
         int cod = Integer.parseInt(scanner.nextLine());
 
         int qtde = dao.excluir(cod);
 
-        System.out.println(qtde > 0 ? "Excluído com sucesso" : "Erro ao excluir");
+        System.out.println(qtde > 0 ? "Excluído com sucesso" : "Erro ao excluir"); //Ternario de retorno.
     }
 
-    private void listarTodos(){
+
+   private void listarTodos(){
         ArrayList<Vendedor> lista = dao.buscarTodos();
 
-        System.out.println("\nLista de Vendedores:");
+        if(lista.isEmpty()){
+            System.out.println("Nenhum vendedor cadastrado.");
+            return;
+        }
 
+        System.out.println("\nLista de Vendedores:\n");
+
+        // Cabeçalho
+        System.out.printf("%-5s | %-20s | %-10s | %-15s%n", "ID", "NOME", "CARGO", "CONTATO");
+        System.out.println("-------------------------------------------------------------");
+
+        // Dados
         for(Vendedor v : lista){
             System.out.printf(
-                "Código: %-5d | Nome: %-15s | Cargo: %-10s%n",
+                "%-5d | %-20s | %-10s | %-15s%n",
                 v.getCodigo(),
                 v.getNome(),
-                v.getCargo()
+                v.getCargo(),
+                v.getContato()
             );
+        }
+    }
+
+
+    private void limparTela(){
+        try{
+            new ProcessBuilder("clear").inheritIO().start().waitFor();
+        }catch(Exception e){
+            System.out.println("\n\n\n\n\n"); // caso de algum erro.
         }
     }
 }

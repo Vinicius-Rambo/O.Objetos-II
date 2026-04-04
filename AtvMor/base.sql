@@ -18,6 +18,6 @@ CREATE TABLE tbvendedores(
     cpf varchar(14) not null,
     numCracha varchar(20) not null,
     anoAdmissao int not null,
-    cargo varchar(20) not null,
+    cargo varchar(20) not null, --Maior valor possivel do ENUM tem 6 caracters 
     PRIMARY KEY(codigo) 
 );

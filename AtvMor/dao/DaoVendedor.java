@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+//Imports por ter pastas
 import model.Vendedor;
 import model.Cargo;
 import util.GerenciadorConexao;
@@ -45,7 +46,7 @@ public class DaoVendedor {
                     + v.getCpf() + "', '"
                     + v.getNumCracha() + "', "
                     + v.getAnoAdmissao() + ", '"
-                    + v.getCargo().name() + "');";
+                    + v.getCargo().name() + "');"; //Usamos o cargo como se fosse uma String normal.
 
             st.executeUpdate(comando);
             resultado = true;
@@ -64,7 +65,7 @@ public class DaoVendedor {
 
         try {
             this.conectar();
-            ResultSet rs = st.executeQuery("SELECT * FROM tbvendedores ORDER BY nome");
+            ResultSet rs = st.executeQuery("SELECT * FROM tbvendedores ORDER BY codigo"); //Ordenado pelos ID`s
 
             while(rs.next()){
                 Vendedor v = new Vendedor();
@@ -78,7 +79,7 @@ public class DaoVendedor {
                 v.setAnoAdmissao(rs.getInt("anoAdmissao"));
                 v.setCargo(Cargo.valueOf(rs.getString("cargo")));
 
-                lista.add(v);
+                lista.add(v); //Adiciona a lista o objeto, com todos os valores. 
             }
 
         } catch (Exception e) {
@@ -107,7 +108,7 @@ public class DaoVendedor {
                 v.setCpf(rs.getString("cpf"));
                 v.setNumCracha(rs.getString("numCracha"));
                 v.setAnoAdmissao(rs.getInt("anoAdmissao"));
-                v.setCargo(Cargo.valueOf(rs.getString("cargo")));
+                v.setCargo(Cargo.valueOf(rs.getString("cargo"))); 
             }
 
         } catch (Exception e) {
