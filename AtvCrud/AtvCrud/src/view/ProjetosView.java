@@ -1,5 +1,7 @@
 package view;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import model.DaoProjetos;
 import model.Projetos;
 import java.io.FileWriter;
@@ -32,7 +34,7 @@ public class ProjetosView extends javax.swing.JPanel {
         tfEmpresaResponsavel.setText("");
         tfTipodeProjeto.setText("");
         tfNomeDoProjeto.setText("");
-        tfDatadeInicio.setText("");
+        tfDatafinal.setText("");
         tfDatafinal.setText("");
 
         BotoesDeStatus.clearSelection();
@@ -56,9 +58,7 @@ public class ProjetosView extends javax.swing.JPanel {
         tfNomeDoProjeto = new javax.swing.JTextField();
         tfTipodeProjeto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfDatadeInicio = new javax.swing.JTextField();
         tfDataFinal = new javax.swing.JLabel();
-        tfDatafinal = new javax.swing.JTextField();
         tfStatus = new javax.swing.JLabel();
         rbNaoIniciado = new javax.swing.JRadioButton();
         rbEmAndamento = new javax.swing.JRadioButton();
@@ -78,6 +78,8 @@ public class ProjetosView extends javax.swing.JPanel {
         tfFiltro = new javax.swing.JTextField();
         btFiltrar = new javax.swing.JButton();
         btMostrar = new javax.swing.JButton();
+        tfDatafinal = new javax.swing.JFormattedTextField();
+        tfDatadeInicio1 = new javax.swing.JFormattedTextField();
 
         jLabel2.setText("ID: ");
 
@@ -98,11 +100,7 @@ public class ProjetosView extends javax.swing.JPanel {
 
         jLabel5.setText("Data de inicio");
 
-        tfDatadeInicio.addActionListener(this::tfDatadeInicioActionPerformed);
-
         tfDataFinal.setText("Data final");
-
-        tfDatafinal.addActionListener(this::tfDatafinalActionPerformed);
 
         tfStatus.setText("Status:");
 
@@ -158,6 +156,11 @@ public class ProjetosView extends javax.swing.JPanel {
         btMostrar.setText("Mostrar tudo");
         btMostrar.addActionListener(this::btMostrarActionPerformed);
 
+        tfDatafinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+
+        tfDatadeInicio1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        tfDatadeInicio1.addActionListener(this::tfDatadeInicio1ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,7 +199,7 @@ public class ProjetosView extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfDatadeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfDatadeInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tfDataFinal)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -218,9 +221,6 @@ public class ProjetosView extends javax.swing.JPanel {
                             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator2)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +230,8 @@ public class ProjetosView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btFiltrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btMostrar)))
+                        .addComponent(btMostrar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -257,9 +258,9 @@ public class ProjetosView extends javax.swing.JPanel {
                             .addComponent(jLabel10)
                             .addComponent(tfNomeDoProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
-                            .addComponent(tfDatadeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfDataFinal)
-                            .addComponent(tfDatafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfDatafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDatadeInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfStatus)
@@ -311,62 +312,113 @@ public class ProjetosView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfTipodeProjetoActionPerformed
 
-    private void tfDatadeInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatadeInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDatadeInicioActionPerformed
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {
+          // Validação dos campos
+    if (tfEmpresaResponsavel.getText().equals("")
+            || tfTipodeProjeto.getText().equals("")
+            || tfNomeDoProjeto.getText().equals("")
+            || tfDatadeInicio.getText().equals("")
+            || tfDatafinal.getText().equals("")) {
 
-    private void tfDatafinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatafinalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDatafinalActionPerformed
+        JOptionPane.showMessageDialog(
+                null,
+                "Preencha todos os campos",
+                "AVISO",
+                JOptionPane.WARNING_MESSAGE
+        );
 
-    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        
-        // Validação
-        if (tfEmpresaResponsavel.getText().equals("")
-                || tfTipodeProjeto.getText().equals("")
-                || tfNomeDoProjeto.getText().equals("")
-                || tfDatadeInicio.getText().equals("")
-                || tfDatafinal.getText().equals("")) {
-            
-            JOptionPane.showMessageDialog(null, "Preencha todos os campos", "AVISO", JOptionPane.WARNING_MESSAGE );
+    } else {
 
-        } else {
+        try {
 
-            projetos = new Projetos();
-            projetos.setEmpresaResponsavel(tfEmpresaResponsavel.getText());
-            projetos.setTipoDeProjeto(tfTipodeProjeto.getText());
-            projetos.setNomeDoProjeto(tfNomeDoProjeto.getText());
-            projetos.setDataDeInicio(tfDatadeInicio.getText());
-            projetos.setDataDeFinalizacao(tfDatafinal.getText());
+                // Formato brasileiro
+                DateTimeFormatter formato =
+                        DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-            // RADIO BUTTON STATUS
-            if (rbNaoIniciado.isSelected()) {
-                 projetos.setStatus("Não iniciado");
+                // Converte texto para data
+                LocalDate dataInicio =
+                        LocalDate.parse(tfDatadeInicio.getText(), formato);
+
+                LocalDate dataFinal =
+                        LocalDate.parse(tfDatafinal.getText(), formato);
+
+                // Verifica se data inicial é maior
+                if (dataInicio.isAfter(dataFinal)) {
+
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "A data de início não pode ser maior que a data final!"
+                    );
+
+                    return;
+                }
+
+                projetos = new Projetos();
+
+                projetos.setEmpresaResponsavel(
+                        tfEmpresaResponsavel.getText()
+                );
+
+                projetos.setTipoDeProjeto(
+                        tfTipodeProjeto.getText()
+                );
+
+                projetos.setNomeDoProjeto(
+                        tfNomeDoProjeto.getText()
+                );
+
+                // Salva no formato SQL yyyy-MM-dd
+                projetos.setDataDeInicio(
+                        dataInicio.toString()
+                );
+
+                projetos.setDataDeFinalizacao(
+                        dataFinal.toString()
+                );
+
+                // STATUS
+                if (rbNaoIniciado.isSelected()) {
+                    projetos.setStatus("Não iniciado");
+                }
+
+                if (rbEmAndamento.isSelected()) {
+                    projetos.setStatus("Em andamento");
+                }
+
+                if (dbFinalizado.isSelected()) {
+                    projetos.setStatus("Finalizado");
+                }
+
+                if (dbCancelado.isSelected()) {
+                    projetos.setStatus("Cancelado");
+                }
+
+                // INSERT OU UPDATE
+                if (tfID.getText().equals("")) {
+
+                    daoProjetos.inserir(projetos);
+
+                } else {
+
+                    projetos.setId(
+                            Integer.parseInt(tfID.getText())
+                    );
+
+                    daoProjetos.alterar(projetos);
+                }
+
+                limparCampos();
+
+                atualizarTabelaProjetos();
+
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Projeto salvo com sucesso!"
+                );
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null,"Data inválida! Use o formato dd/MM/yyyy");
             }
-
-            if (rbEmAndamento.isSelected()) {
-                projetos.setStatus("Em andamento");
-            }
-
-            if (dbFinalizado.isSelected()) {
-                projetos.setStatus("Finalizado");
-            }
-
-            if (dbCancelado.isSelected()) {
-                projetos.setStatus("Cancelado");
-            }
-
-            // INSERT OU UPDATE
-            if (tfID.getText().equals("")) { //Se o Id estiver vazio ele deve inserir.
-                daoProjetos.inserir(projetos);
-
-            } else { //Se não ele deve atualizar
-                projetos.setId(Integer.parseInt(tfID.getText()));
-                daoProjetos.alterar(projetos);
-            }
-
-            limparCampos();
-            atualizarTabelaProjetos();
         }
     }
 
@@ -421,7 +473,7 @@ public class ProjetosView extends javax.swing.JPanel {
         );
 
         // Data início
-        tfDatadeInicio.setText(
+        tfDatafinal.setText(
                 jTableProjetos.getValueAt(
                         jTableProjetos.getSelectedRow(),
                         4
@@ -524,6 +576,10 @@ public class ProjetosView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbFiltrosActionPerformed
 
+    private void tfDatadeInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatadeInicio1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDatadeInicio1ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -551,8 +607,8 @@ public class ProjetosView extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbEmAndamento;
     private javax.swing.JRadioButton rbNaoIniciado;
     private javax.swing.JLabel tfDataFinal;
-    private javax.swing.JTextField tfDatadeInicio;
-    private javax.swing.JTextField tfDatafinal;
+    private javax.swing.JFormattedTextField tfDatadeInicio1;
+    private javax.swing.JFormattedTextField tfDatafinal;
     private javax.swing.JTextField tfEmpresaResponsavel;
     private javax.swing.JTextField tfFiltro;
     private javax.swing.JTextField tfID;

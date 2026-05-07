@@ -7,8 +7,8 @@ CREATE TABLE projetos (
     empresaResponsavel VARCHAR(150) NOT NULL,
     tipoDeProjeto VARCHAR(150) NOT NULL,
     nomeDoProjeto VARCHAR(150) NOT NULL,
-    dataDeInicio VARCHAR(50) NOT NULL,
-    dataDeFinalizacao VARCHAR(50) NOT NULL,
+    dataDeInicio DATE NOT NULL,
+    dataDeFinalizacao DATE (50) NOT NULL,
     status VARCHAR(50) NOT NULL
 );
 
@@ -19,4 +19,3 @@ VALUES
 ('Amazon', 'Banco de Dados', 'Controle Estoque', '05/01/2026', '30/12/2026', 'Não iniciado');
 
 SELECT * FROM projetos;
-

@@ -56,7 +56,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="tfDatadeInicio" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <Component id="tfDatadeInicio1" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="tfDataFinal" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -87,10 +87,6 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -102,6 +98,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btMostrar" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -134,9 +131,9 @@
                           <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfNomeDoProjeto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="tfDatadeInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfDataFinal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="tfDatafinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfDatadeInicio1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -231,20 +228,10 @@
         <Property name="text" type="java.lang.String" value="Data de inicio"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfDatadeInicio">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDatadeInicioActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="tfDataFinal">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data final"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="tfDatafinal">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDatafinalActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="tfStatus">
       <Properties>
@@ -388,6 +375,23 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btMostrarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="tfDatafinal">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format subtype="1" type="1"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="tfDatadeInicio1">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format subtype="1" type="1"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDatadeInicio1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
