@@ -79,7 +79,7 @@ public class ProjetosView extends javax.swing.JPanel {
         btFiltrar = new javax.swing.JButton();
         btMostrar = new javax.swing.JButton();
         tfDatafinal = new javax.swing.JFormattedTextField();
-        tfDatadeInicio1 = new javax.swing.JFormattedTextField();
+        tfDatadeInicio = new javax.swing.JFormattedTextField();
 
         jLabel2.setText("ID: ");
 
@@ -158,8 +158,8 @@ public class ProjetosView extends javax.swing.JPanel {
 
         tfDatafinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        tfDatadeInicio1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        tfDatadeInicio1.addActionListener(this::tfDatadeInicio1ActionPerformed);
+        tfDatadeInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        tfDatadeInicio.addActionListener(this::tfDatadeInicioActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,7 +199,7 @@ public class ProjetosView extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel5)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfDatadeInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfDatadeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tfDataFinal)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -260,7 +260,7 @@ public class ProjetosView extends javax.swing.JPanel {
                             .addComponent(jLabel5)
                             .addComponent(tfDataFinal)
                             .addComponent(tfDatafinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDatadeInicio1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfDatadeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfStatus)
@@ -576,9 +576,9 @@ public class ProjetosView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbFiltrosActionPerformed
 
-    private void tfDatadeInicio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatadeInicio1ActionPerformed
+    private void tfDatadeInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatadeInicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfDatadeInicio1ActionPerformed
+    }//GEN-LAST:event_tfDatadeInicioActionPerformed
 
     
 
@@ -607,7 +607,7 @@ public class ProjetosView extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbEmAndamento;
     private javax.swing.JRadioButton rbNaoIniciado;
     private javax.swing.JLabel tfDataFinal;
-    private javax.swing.JFormattedTextField tfDatadeInicio1;
+    private javax.swing.JFormattedTextField tfDatadeInicio;
     private javax.swing.JFormattedTextField tfDatafinal;
     private javax.swing.JTextField tfEmpresaResponsavel;
     private javax.swing.JTextField tfFiltro;
