@@ -3,6 +3,7 @@ package atvcrud;
 import java.util.ArrayList;
 import model.DaoProjetos;
 import model.Projetos;
+import view.ProjetosView;
 
 public class AtvCrud {
     public static void main(String[] args) {
@@ -12,10 +13,9 @@ public class AtvCrud {
         
         com.formdev.flatlaf.FlatDarkLaf.setup(); //Tema escuro para a janela.
         
-        new ProjetosView.setVisible(true); //Chama minha view
+        new ProjetosView().setVisible(true);
         
     }
     
 }
-    
-}
+  

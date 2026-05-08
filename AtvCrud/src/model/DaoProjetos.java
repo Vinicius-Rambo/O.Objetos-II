@@ -47,7 +47,7 @@ public class DaoProjetos {
             this.conectar();
 
             // Comando SQL INSERT.
-            String comando = "INSERT INTO tbprojetos VALUES ("
+            String comando = "INSERT INTO projetos VALUES ("
                     + "null, '"
                     + p.getEmpresaResponsavel() + "', '"
                     + p.getTipoDeProjeto() + "', '"
@@ -80,7 +80,7 @@ public class DaoProjetos {
         try {
             this.conectar();
             ResultSet rs = st.executeQuery(
-                    "SELECT * FROM tbprojetos ORDER BY nomeDoProjeto"
+                    "SELECT * FROM projetos ORDER BY nomeDoProjeto"
             );
 
 
@@ -118,7 +118,7 @@ public class DaoProjetos {
 
         conectar();
         String sql =
-                "SELECT * FROM tbprojetos "
+                "SELECT * FROM projetos "
                 + "WHERE " + campo
                 + " LIKE '%" + filtro + "%'";
 
@@ -157,7 +157,7 @@ public class DaoProjetos {
         try {
 
             this.conectar();
-            String comando = "DELETE FROM tbprojetos WHERE id = " + id + ";";
+            String comando = "DELETE FROM projetos WHERE id = " + id + ";";
             st.execute(comando);
 
             // Quantidade de linhas afetadas
@@ -179,7 +179,7 @@ public class DaoProjetos {
         int qtde = 0;
         try {
             this.conectar();            
-            String comando = "UPDATE tbprojetos SET "
+            String comando = "UPDATE projetos SET "
                     + "empresaResponsavel = '" + p.getEmpresaResponsavel() + "', "
                     + "tipoDeProjeto = '" + p.getTipoDeProjeto() + "', "
                     + "nomeDoProjeto = '" + p.getNomeDoProjeto() + "', "

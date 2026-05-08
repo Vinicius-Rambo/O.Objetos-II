@@ -11,7 +11,7 @@ public class Projetos {
     private String status;
 
     // ID
-    public int getId() {g
+    public int getId(){
         return id;
     }
 
