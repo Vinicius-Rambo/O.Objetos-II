@@ -36,11 +36,10 @@ public class ProjetosView extends javax.swing.JFrame {
         tfEmpresaResponsavel.setText("");
         tfTipodeProjeto.setText("");
         tfNomeDoProjeto.setText("");
-        tfDatafinal.setText("");
+        tfDatadeInicio.setText("");
         tfDatafinal.setText("");
 
         BotoesDeStatus.clearSelection();
-
         btExcluir.setEnabled(false);
     } 
 
@@ -290,30 +289,6 @@ public class ProjetosView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfIDActionPerformed
-
-    private void tfEmpresaResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfEmpresaResponsavelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfEmpresaResponsavelActionPerformed
-
-    private void tfTipodeProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTipodeProjetoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfTipodeProjetoActionPerformed
-
-    private void tfNomeDoProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomeDoProjetoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNomeDoProjetoActionPerformed
-
-    private void tfDatadeInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDatadeInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfDatadeInicioActionPerformed
-
-    private void rbNaoIniciadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbNaoIniciadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbNaoIniciadoActionPerformed
-
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
               // Validação dos campos
         if (tfEmpresaResponsavel.getText().equals("")
@@ -322,120 +297,79 @@ public class ProjetosView extends javax.swing.JFrame {
                 || tfDatadeInicio.getText().equals("")
                 || tfDatafinal.getText().equals("")) {
 
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Preencha todos os campos",
-                    "AVISO",
-                    JOptionPane.WARNING_MESSAGE
-            );
-
+            JOptionPane.showMessageDialog(null,"Preencha todos os campos","AVISO",JOptionPane.WARNING_MESSAGE);
         } else {
-
             try {
 
                     // Formato brasileiro
-                    DateTimeFormatter formato =
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                     // Converte texto para data
-                    LocalDate dataInicio =
-                            LocalDate.parse(tfDatadeInicio.getText(), formato);
+                    LocalDate dataInicio = LocalDate.parse(tfDatadeInicio.getText(), formato);
+                    LocalDate dataFinal = LocalDate.parse(tfDatafinal.getText(), formato);
 
-                    LocalDate dataFinal =
-                            LocalDate.parse(tfDatafinal.getText(), formato);
-
-                    // Verifica se data inicial é maior
-                    if (dataInicio.isAfter(dataFinal)) {
-
-                        JOptionPane.showMessageDialog(
-                                null,
-                                "A data de início não pode ser maior que a data final!"
-                        );
-
+                    if (dataInicio.isAfter(dataFinal)) { // Verifica se data inicial é maior
+                        JOptionPane.showMessageDialog(null,"A data de início não pode ser maior que a data final!");
                         return;
                     }
 
                     projetos = new Projetos();
 
-                    projetos.setEmpresaResponsavel(
-                            tfEmpresaResponsavel.getText()
-                    );
-
-                    projetos.setTipoDeProjeto(
-                            tfTipodeProjeto.getText()
-                    );
-
-                    projetos.setNomeDoProjeto(
-                            tfNomeDoProjeto.getText()
-                    );
-
-                    // Salva no formato SQL yyyy-MM-dd
-                    projetos.setDataDeInicio(
-                            dataInicio.toString()
-                    );
-
-                    projetos.setDataDeFinalizacao(
-                            dataFinal.toString()
-                    );
+                    projetos.setEmpresaResponsavel(tfEmpresaResponsavel.getText());
+                    projetos.setTipoDeProjeto(tfTipodeProjeto.getText());
+                    projetos.setNomeDoProjeto(tfNomeDoProjeto.getText());
+                    projetos.setDataDeInicio(dataInicio.toString()); // Salva no formato SQL yyyy-MM-dd
+                    projetos.setDataDeFinalizacao(dataFinal.toString()); //Também salva no formato SQL yyyy-MM-dd
 
                     // STATUS
                     if (rbNaoIniciado.isSelected()) {
                         projetos.setStatus("Não iniciado");
                     }
 
-                    if (rbEmAndamento.isSelected()) {
+                    else if (rbEmAndamento.isSelected()) {
                         projetos.setStatus("Em andamento");
                     }
 
-                    if (dbFinalizado.isSelected()) {
+                    else if (dbFinalizado.isSelected()) {
                         projetos.setStatus("Finalizado");
                     }
 
-                    if (dbCancelado.isSelected()) {
+                    else if (dbCancelado.isSelected()) {
                         projetos.setStatus("Cancelado");
                     }
-
+                    else{
+                        JOptionPane.showMessageDialog(null,"Sem opções selecionadas");
+                    }
+                    
                     // INSERT OU UPDATE
-                    if (tfID.getText().equals("")) {
-
+                    if (tfID.getText().equals("")) { //Se ID vazio vai inserir
                         daoProjetos.inserir(projetos);
 
                     } else {
 
-                        projetos.setId(
-                                Integer.parseInt(tfID.getText())
-                        );
-
+                        projetos.setId(Integer.parseInt(tfID.getText()));
                         daoProjetos.alterar(projetos);
                     }
 
                     limparCampos();
-
                     atualizarTabelaProjetos();
-
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Projeto salvo com sucesso!"
-                    );
+                    JOptionPane.showMessageDialog(null,"Projeto salvo com sucesso!");
 
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null,"Data inválida! Use o formato dd/MM/yyyy");
                 }
         }
-    }//GEN-LAST:event_btSalvarActionPerformed
+    }
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         int confirma = JOptionPane.showConfirmDialog(null, "Deseja excluir este projeto?", "Excluir Projeto", JOptionPane.YES_NO_OPTION);
 
         if (confirma == 0) {
-
             daoProjetos.excluir(Integer.parseInt(tfID.getText()));
-
             limparCampos();
-
             atualizarTabelaProjetos();
         }
-    }//GEN-LAST:event_btExcluirActionPerformed
+    }
 
     private void RelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RelatorioActionPerformed
         try {
@@ -468,85 +402,42 @@ public class ProjetosView extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Erro ao gerar relatório: "+ e.getMessage());
         }
-    }//GEN-LAST:event_RelatorioActionPerformed
+    }
 
-    private void jTableProjetosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProjetosMouseClicked
-        // Pega o ID
-        tfID.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                0
-            ).toString()
-        );
-
-        // Empresa
-        tfEmpresaResponsavel.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                1
-            ).toString()
-        );
-
-        // Tipo
-        tfTipodeProjeto.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                2
-            ).toString()
-        );
-
-        // Nome
-        tfNomeDoProjeto.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                3
-            ).toString()
-        );
-
-        // Data início
-        tfDatafinal.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                4
-            ).toString()
-        );
-
-        // Data final
-        tfDatafinal.setText(
-            jTableProjetos.getValueAt(
-                jTableProjetos.getSelectedRow(),
-                5
-            ).toString()
-        );
+    private void jTableProjetosMouseClicked(java.awt.event.MouseEvent evt) {//Caso o a tabela seja clicada.
+        
+        tfID.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),0).toString());// Pega o ID
+        tfEmpresaResponsavel.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),1).toString()); // Empresa
+        tfTipodeProjeto.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),2).toString()); // Tipo
+        tfNomeDoProjeto.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),3).toString()); // Nome
+        tfDatadeInicio.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),4).toString()); // Data início
+        tfDatafinal.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),5).toString()); // Data final
 
         // Status
-        String status = jTableProjetos.getValueAt(
-            jTableProjetos.getSelectedRow(),
-            6
-        ).toString();
+        String status = jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),6).toString();
 
         if (status.equals("Não iniciado")) {
             rbNaoIniciado.setSelected(true);
         }
 
-        if (status.equals("Em andamento")) {
+        else if (status.equals("Em andamento")) {
             rbEmAndamento.setSelected(true);
         }
 
-        if (status.equals("Finalizado")) {
+        else if (status.equals("Finalizado")) {
             dbFinalizado.setSelected(true);
         }
 
-        if (status.equals("Cancelado")) {
+        else if (status.equals("Cancelado")) {
             dbCancelado.setSelected(true);
         }
-
-        btExcluir.setEnabled(true);
-    }//GEN-LAST:event_jTableProjetosMouseClicked
-
-    private void cbFiltrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFiltrosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbFiltrosActionPerformed
+        else {
+            JOptionPane.showMessageDialog(null,"Opção invalida.");
+        }
+        
+        
+        btExcluir.setEnabled(true); //Possibilidade de excluir apenas se já tiver selecionado
+    }
 
     private void btFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFiltrarActionPerformed
         String campo = "";
@@ -554,37 +445,27 @@ public class ProjetosView extends javax.swing.JFrame {
         // Descobre qual opção foi escolhida
         if (cbFiltros.getSelectedItem().equals("Empresa Responsavel")) {
             campo = "empresaResponsavel";
-        }
 
-        if (cbFiltros.getSelectedItem().equals("Tipo de Projeto")) {
+        }else if(cbFiltros.getSelectedItem().equals("Tipo de Projeto")) {
             campo = "tipoDeProjeto";
-        }
-
-        if (cbFiltros.getSelectedItem().equals("Status")) {
+            
+        } else if (cbFiltros.getSelectedItem().equals("Status")) {
             campo = "status";
+            
+        } else {
+            JOptionPane.showMessageDialog(null,"Erro nos filtros.");
         }
 
         // Atualiza tabela com filtro
         jTableProjetos.setModel(new ProjetosTableModel(daoProjetos.buscarTodosFiltro(campo,tfFiltro.getText())));
 
-    }//GEN-LAST:event_btFiltrarActionPerformed
+    }
 
     private void btMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarActionPerformed
         tfFiltro.setText("");
         atualizarTabelaProjetos();
-    }//GEN-LAST:event_btMostrarActionPerformed
+    }
 
-    private void tfFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFiltroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfFiltroActionPerformed
-
-    private void dbCanceladoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbCanceladoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dbCanceladoActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

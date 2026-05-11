@@ -13,10 +13,3 @@ CREATE TABLE projetos (
     status VARCHAR(50) NOT NULL
 );
 
-INSERT INTO projetos(empresaResponsavel, tipoDeProjeto, nomeDoProjeto, dataDeInicio, dataDeFinalizacao, status)
-VALUES
-('Google', 'Sistema Web', 'Portal RH', '01-05-2026', '20-07-2026', 'Em andamento'),
-('Microsoft', 'Aplicativo Mobile', 'App Financeiro', '10-03-2026', '15-06-2026', 'Finalizado'),
-('Amazon', 'Banco de Dados', 'Controle Estoque', '05-01-2026', '30-12-2026', 'Não iniciado');
-
-SELECT * FROM projetos;
