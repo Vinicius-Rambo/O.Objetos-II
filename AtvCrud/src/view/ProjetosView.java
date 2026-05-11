@@ -410,9 +410,23 @@ public class ProjetosView extends javax.swing.JFrame {
         tfEmpresaResponsavel.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),1).toString()); // Empresa
         tfTipodeProjeto.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),2).toString()); // Tipo
         tfNomeDoProjeto.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),3).toString()); // Nome
-        tfDatadeInicio.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),4).toString()); // Data início
-        tfDatafinal.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),5).toString()); // Data final
+        //tfDatadeInicio.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),4).toString()); // Data início
+        //tfDatafinal.setText(jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),5).toString()); // Data final
 
+        //Datas (com formatador)
+        String dataInicioBanco = jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),4).toString(); 
+        String dataFinalBanco = jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),5).toString();
+        
+        DateTimeFormatter formatoBanco = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //Banco de dados usa esse formato
+        DateTimeFormatter formatoTela = DateTimeFormatter.ofPattern("dd/MM/yyyy");  //Padrão brasileiro de data.
+        
+        LocalDate dataInicio = LocalDate.parse(dataInicioBanco, formatoBanco);  //Converte os dados do banco em um LocalDate.
+        LocalDate dataFinal = LocalDate.parse(dataFinalBanco, formatoBanco);
+        
+        tfDatadeInicio.setText(dataInicio.format(formatoTela)); //Converte a data para o formtato barisleiro e coloca na tela.
+        tfDatafinal.setText(dataFinal.format(formatoTela));
+
+        
         // Status
         String status = jTableProjetos.getValueAt(jTableProjetos.getSelectedRow(),6).toString();
 
