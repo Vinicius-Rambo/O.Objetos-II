@@ -76,9 +76,9 @@ public class ConsoleView {
 
             String resposta;
             do {
-                System.out.print("Portátil (sim/nao): ");
+                System.out.print("Portátil (S/N): ");
                 resposta = scanner.nextLine().toLowerCase().trim();
-            } while (!resposta.equals("sim") && !resposta.equals("nao") && !resposta.equals("s") && !resposta.equals("n"));
+            } while (!resposta.equals("sim") && !resposta.equals("nao") && !resposta.equals("s") && !resposta.equals("n") && !resposta.equals("não"));
             
             c.setPortatil(resposta);
 
