@@ -15,16 +15,21 @@ public class ConsoleView {
         daoGenerico = new DaoGenerico();
     }
 
-    public void menu() {
+    public void menu() throws Exception {
         int opcao = 1;
         do {
-            System.out.println("\n- - - MENU CONSOLES - - -");
-            System.out.println("[1] - Cadastrar");
-            System.out.println("[2] - Consultar");
-            System.out.println("[3] - Alterar");
-            System.out.println("[4] - Excluir");
-            System.out.println("[5] - Listar Todos");
-            System.out.println("[0] - Sair");
+            limparTela();
+
+            System.out.println("+---------------------------+");
+            System.out.println("|       CRUD CONSOLES       |");
+            System.out.println("+---------------------------+");
+            System.out.println("| [1] Cadastrar             |");
+            System.out.println("| [2] Consultar             |");
+            System.out.println("| [3] Alterar               |");
+            System.out.println("| [4] Excluir               |");
+            System.out.println("| [5] Listar Todos          |");
+            System.out.println("| [0] Voltar                |");
+            System.out.println("+---------------------------+");
             System.out.print("Escolha uma opção: ");
 
             try {
@@ -46,10 +51,13 @@ public class ConsoleView {
         } while (opcao != 0);
     }
 
-    public void cadastrar() {
+    public void cadastrar() throws Exception {
         try {
             Console c = new Console();
-            System.out.println("\n- - Cadastro de Console - -");
+            limparTela();
+            System.out.println("+--------------------------------------+");
+            System.out.println("|          CADASTRAR CONSOLE           |");
+            System.out.println("+--------------------------------------+");
 
             System.out.print("ID: ");
             c.setId(Integer.parseInt(scanner.nextLine()));
@@ -74,10 +82,22 @@ public class ConsoleView {
             
             c.setPortatil(resposta);
 
+            Console existente = daoGenerico.consultar(Console.class, "id", c.getId());
+
+            if(existente != null){
+                System.out.println("ERRO: Já existe um console com esse ID.");
+                pausa();
+                return;
+            }
+
             daoGenerico.inserir(c);
-            System.out.println("Console cadastrado com sucesso!");
+            System.out.println("\nConsole cadastrado com sucesso!");
+            pausa();
+
+
         } catch (NumberFormatException e) {
             System.out.println("Erro: Digite apenas números válidos para ID, Ano e Armazenamento.");
+            pausa();
         }
     }
 
@@ -90,13 +110,18 @@ public class ConsoleView {
             Console c = daoGenerico.consultar(Console.class, "id", id);
 
             if (c != null) {
-                System.out.println("\n[Dados do Console]");
-                System.out.println("ID: " + c.getId());
-                System.out.println("Nome: " + c.getNome());
-                System.out.println("Fabricante: " + c.getFabricante());
-                System.out.println("Ano: " + c.getAnoLancamento());
-                System.out.println("Armazenamento: " + c.getArmazenamento() + " GB");
-                System.out.println("Portátil: " + c.getPortatil());
+                System.out.println();
+                System.out.println("+--------------------------------------+");
+                System.out.println("|          DADOS DO CONSOLE            |");
+                System.out.println("+--------------------------------------+");
+                System.out.println(" ID..............: " + c.getId());
+                System.out.println(" Nome............: " + c.getNome());
+                System.out.println(" Fabricante......: " + c.getFabricante());
+                System.out.println(" Ano.............: " + c.getAnoLancamento());
+                System.out.println(" Armazenamento...: " + c.getArmazenamento() + " GB");
+                System.out.println(" Portátil........: " + c.getPortatil());
+                System.out.println("+--------------------------------------+");
+                pausa();
             } else {
                 System.out.println("Console não encontrado.");
             }
@@ -109,7 +134,13 @@ public class ConsoleView {
 
     public void alterar() {
         try {
-            System.out.println("\n- - Alteração de Console - -");
+            limparTela();
+            System.out.println("+--------------------------------------+");
+            System.out.println("|           ALTERAR CONSOLE            |");
+            System.out.println("+--------------------------------------+");
+            System.out.println("Deixe em branco para manter o valor.");
+            System.out.println();
+
             System.out.print("ID: ");
             int id = Integer.parseInt(scanner.nextLine());
 
@@ -138,7 +169,9 @@ public class ConsoleView {
 
                 int qtde = daoGenerico.alterar(c, "id", id);
                 if (qtde > 0) {
-                    System.out.println("Atualizado com sucesso.");
+                    System.out.println("\nConsole atualizado com sucesso!");
+                    pausa();
+
                 } else {
                     System.out.println("Não foi possível atualizar.");
                 }
@@ -151,12 +184,35 @@ public class ConsoleView {
             System.out.println("Erro: " + e.getMessage());
         }
     }
-
-    public void excluir() {
+    
+    public void excluir() throws Exception {
         try {
-            System.out.println("\n- - Exclusão de Console - -");
+            limparTela();
+            System.out.println("+--------------------------------------+");
+            System.out.println("|           EXCLUIR CONSOLE            |");
+            System.out.println("+--------------------------------------+");
+
             System.out.print("ID: ");
             int id = Integer.parseInt(scanner.nextLine());
+
+            Console c = daoGenerico.consultar(Console.class, "id", id);
+
+            if (c != null) {
+
+                System.out.println();
+                System.out.println("Console encontrado:");
+                System.out.println("Nome: " + c.getNome());
+                System.out.println("Fabricante: " + c.getFabricante());
+
+                System.out.print("\nConfirmar exclusão (S/N): ");
+                String resposta = scanner.nextLine();
+
+                if (!resposta.equalsIgnoreCase("S")) {
+                    System.out.println("Operação cancelada.");
+                    pausa();
+                    return;
+                }
+            }
 
             int qtde = daoGenerico.excluir(Console.class, "id", id);
             if (qtde > 0) {
@@ -178,16 +234,46 @@ public class ConsoleView {
             return;
         }
 
+        System.out.println();
+        System.out.println("+--------------------------------------------------------------------------------+");
+        System.out.printf("| %-3s | %-20s | %-15s | %-4s | %-10s | %-10s |\n",
+                "ID",
+                "NOME",
+                "FABRICANTE",
+                "ANO",
+                "ARMAZ.(GB)",
+                "PORTATIL");
+        System.out.println("+--------------------------------------------------------------------------------+");
+
         for (Console c : consoles) {
-            System.out.printf(
-                "ID: %-3d | Nome: %-20s | Fabricante: %-15s | Ano: %-4d | Armazenamento: %-6.2f GB | Portátil: %-3s\n",
-                c.getId(),
-                c.getNome(),
-                c.getFabricante(),
-                c.getAnoLancamento(),
-                c.getArmazenamento(),
-                c.getPortatil()
-            );
+            System.out.printf("| %-3d | %-20s | %-15s | %-4d | %-10.2f | %-10s |\n",
+                    c.getId(),
+                    c.getNome(),
+                    c.getFabricante(),
+                    c.getAnoLancamento(),
+                    c.getArmazenamento(),
+                    c.getPortatil());
+        }
+
+        System.out.println("+--------------------------------------------------------------------------------+");
+        System.out.println("Total de registros: " + consoles.size());
+        pausa();
+    }
+
+    private void limparTela() {
+        try {
+            new ProcessBuilder("clear").inheritIO().start().waitFor(); //Limpa o terminal do linux
+        } catch (Exception e) {
+            for (int i = 0; i < 40; i++) { // Caso não funcione printa 40 espaços vazios.
+                System.out.println();
+            }
         }
     }
+
+    private void pausa() { //Metodo auxiliar para evitar repetição.
+        System.out.println();
+        System.out.print("Pressione ENTER para continuar...");
+        scanner.nextLine();
+    }
+
 }

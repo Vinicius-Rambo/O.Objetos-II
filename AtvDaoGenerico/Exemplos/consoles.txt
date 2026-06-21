@@ -1,0 +1,69 @@
+ID: 1
+Nome: PlayStation 2
+Fabricante: Sony
+Ano de lançamento: 2000
+Armazenamento: 8
+Portátil: nao
+
+ID: 2
+Nome: Xbox 360
+Fabricante: Microsoft
+Ano de lançamento: 2005
+Armazenamento: 20
+Portátil: nao
+
+ID: 3
+Nome: Nintendo Switch
+Fabricante: Nintendo
+Ano de lançamento: 2017
+Armazenamento: 32
+Portátil: sim
+
+ID: 4
+Nome: PlayStation 5
+Fabricante: Sony
+Ano de lançamento: 2020
+Armazenamento: 825
+Portátil: nao
+
+ID: 5
+Nome: Xbox Series X
+Fabricante: Microsoft
+Ano de lançamento: 2020
+Armazenamento: 1000
+Portátil: nao
+
+ID: 6
+Nome: PSP
+Fabricante: Sony
+Ano de lançamento: 2004
+Armazenamento: 4
+Portátil: sim
+
+ID: 7
+Nome: Nintendo DS
+Fabricante: Nintendo
+Ano de lançamento: 2004
+Armazenamento: 1
+Portátil: sim
+
+ID: 8
+Nome: Steam Deck
+Fabricante: Valve
+Ano de lançamento: 2022
+Armazenamento: 512
+Portátil: sim
+
+ID: 9
+Nome: Game Boy Advance
+Fabricante: Nintendo
+Ano de lançamento: 2001
+Armazenamento: 1
+Portátil: sim
+
+ID: 10
+Nome: Sega Dreamcast
+Fabricante: Sega
+Ano de lançamento: 1998
+Armazenamento: 1
+Portátil: nao
